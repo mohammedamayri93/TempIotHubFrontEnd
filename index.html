@@ -83,28 +83,33 @@
             await updateTemperatureDisplay();
             refreshTemperaturePeriodically();
         }
-// Add this script to handle the button click event
-document.getElementById('sendMessageBtn').addEventListener('click', async function () {
+
+        async function sendMessage() {
+    const functionKey = 'fC6T79WcTHvZUee1A0L_n7ktAwt5Af-8tYZiV9QlmXyBAzFuDPj5Tw==';  // Replace with your actual function key
+    const apiUrl = 'https://gettempfromthehub.azurewebsites.net/api/sendMessage';
+
     try {
-        // Send a request to your backend to trigger the message sending
-        const response = await fetch('https://gettempfromthehub.azurewebsites.net/api/sendMessage', {
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'x-functions-key': functionKey,
             },
-            // You can pass additional data in the body if needed
-            // body: JSON.stringify({ key: 'value' }),
         });
 
         if (response.ok) {
-            console.log('Message sent successfully.');
+            console.log('Message sent successfully');
         } else {
-            console.error('Failed to send message.');
+            console.error('Failed to send message:', response.statusText);
         }
     } catch (error) {
         console.error('Error sending message:', error);
     }
-});
+}
+
+// Call the function when the button is clicked
+document.getElementById('yourButtonId').addEventListener('click', sendMessage);
+
         window.onload = init;
     </script>
 </body>
