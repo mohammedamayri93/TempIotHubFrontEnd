@@ -49,13 +49,13 @@
         async function updateTemperatureDisplay() {
     try {
         const temperatureData = await fetchLatestTemperature();
-        if (temperatureData && temperatureData.Temperature !== undefined) {
+        if (temperatureData && temperatureData.temperature !== undefined) {
             const temperatureDisplayElement = document.getElementById('temperatureDisplay');
-            temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.Temperature} °C`;
+            temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.temperature} °C`;
 
             // Update last update time
             const lastUpdateElement = document.getElementById('lastUpdate');
-            lastUpdateElement.textContent = `Last Update Time: ${new Date(temperatureData.Timestamp).toLocaleTimeString()}`;
+            lastUpdateElement.textContent = `Last Update Time: ${new Date(temperatureData.timestamp).toLocaleTimeString()}`;
         } else {
             throw new Error("Invalid temperature data");
         }
