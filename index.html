@@ -39,16 +39,16 @@
         }
 
         async function updateTemperatureDisplay() {
-            const temperatureData = await fetchLatestTemperature();
-            if (temperatureData) {
-                const temperatureDisplayElement = document.getElementById('temperatureDisplay');
-                temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.temperature} °C`;
+    const temperatureData = await fetchLatestTemperature();
+    if (temperatureData) {
+        const temperatureDisplayElement = document.getElementById('temperatureDisplay');
+        temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.Temperature} °C`;
 
-                // Update last update time
-                const lastUpdateElement = document.getElementById('lastUpdate');
-                lastUpdateElement.textContent = `Last Update Time: ${new Date(temperatureData.timestamp).toLocaleTimeString()}`;
-            }
-        }
+        // Update last update time
+        const lastUpdateElement = document.getElementById('lastUpdate');
+        lastUpdateElement.textContent = `Last Update Time: ${new Date(temperatureData.timestamp).toLocaleTimeString()}`;
+    }
+}
 
         async function refreshTemperaturePeriodically() {
             while (true) {
