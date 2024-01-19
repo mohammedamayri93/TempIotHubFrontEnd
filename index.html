@@ -39,15 +39,20 @@
         }
 
         async function updateTemperatureDisplay() {
-    const temperatureData = await fetchLatestTemperature();
-    if (temperatureData) {
-        console.log(temperatureData);
-        const temperatureDisplayElement = document.getElementById('temperatureDisplay');
-        temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.Temperature} °C`;
+    try {
+        const temperatureData = await fetchLatestTemperature();
+        if (temperatureData && temperatureData.Temperature !== undefined) {
+            const temperatureDisplayElement = document.getElementById('temperatureDisplay');
+            temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.Temperature} °C`;
 
-        // Update last update time
-        const lastUpdateElement = document.getElementById('lastUpdate');
-        lastUpdateElement.textContent = `Last Update Time: ${new Date(temperatureData.timestamp).toLocaleTimeString()}`;
+            // Update last update time
+            const lastUpdateElement = document.getElementById('lastUpdate');
+            lastUpdateElement.textContent = `Last Update Time: ${new Date(temperatureData.Timestamp).toLocaleTimeString()}`;
+        } else {
+            throw new Error("Invalid temperature data");
+        }
+    } catch (error) {
+        console.error('Error updating temperature display:', error);
     }
 }
 
