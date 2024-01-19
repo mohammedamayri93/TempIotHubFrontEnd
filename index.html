@@ -41,6 +41,7 @@
         async function updateTemperatureDisplay() {
     const temperatureData = await fetchLatestTemperature();
     if (temperatureData) {
+        console.log(temperatureData);
         const temperatureDisplayElement = document.getElementById('temperatureDisplay');
         temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.Temperature} °C`;
 
