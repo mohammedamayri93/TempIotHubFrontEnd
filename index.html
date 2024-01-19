@@ -42,15 +42,12 @@
     try {
         const temperatureData = await fetchLatestTemperature();
         if (temperatureData && temperatureData.Temperature !== undefined) {
-            // Parse the JSON string to an object
-            const parsedTemperatureData = JSON.parse(temperatureData);
-
             const temperatureDisplayElement = document.getElementById('temperatureDisplay');
-            temperatureDisplayElement.textContent = `Latest Temperature: ${parsedTemperatureData.Temperature} °C`;
+            temperatureDisplayElement.textContent = `Latest Temperature: ${temperatureData.Temperature} °C`;
 
             // Update last update time
             const lastUpdateElement = document.getElementById('lastUpdate');
-            lastUpdateElement.textContent = `Last Update Time: ${new Date(parsedTemperatureData.Timestamp).toLocaleTimeString()}`;
+            lastUpdateElement.textContent = `Last Update Time: ${new Date(temperatureData.Timestamp).toLocaleTimeString()}`;
         } else {
             throw new Error("Invalid temperature data");
         }
@@ -58,7 +55,6 @@
         console.error('Error updating temperature display:', error);
     }
 }
-
         async function refreshTemperaturePeriodically() {
             while (true) {
                 await updateTemperatureDisplay();
