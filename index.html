@@ -35,11 +35,10 @@
                 <h5 class="card-title">Temperature Information</h5>
                 <p id="temperatureDisplay" class="temperature-display card-text"></p>
                 <p id="lastUpdate" class="card-text text-muted"></p>
+                <!-- Add this button in your card-body div -->
+                <button id="sendMessageBtn" class="btn btn-primary">Send Message</button>
             </div>
         </div>
-        <!-- Add this button in your card-body div -->
-    <button id="sendMessageBtn" class="btn btn-primary">Send Message</button>
-
     </div>
 
     <script>
@@ -71,6 +70,29 @@
             }
         }
 
+        async function sendMessage() {
+            const functionKey = 'fC6T79WcTHvZUee1A0L_n7ktAwt5Af-8tYZiV9QlmXyBAzFuDPj5Tw==';  // Replace with your actual function key
+            const apiUrl = 'https://gettempfromthehub.azurewebsites.net/api/sendMessage';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-functions-key': functionKey,
+                    },
+                });
+
+                if (response.ok) {
+                    console.log('Message sent successfully');
+                } else {
+                    console.error('Failed to send message:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+
         async function refreshTemperaturePeriodically() {
             while (true) {
                 await updateTemperatureDisplay();
@@ -84,31 +106,8 @@
             refreshTemperaturePeriodically();
         }
 
-        async function sendMessage() {
-    const functionKey = 'fC6T79WcTHvZUee1A0L_n7ktAwt5Af-8tYZiV9QlmXyBAzFuDPj5Tw==';  // Replace with your actual function key
-    const apiUrl = 'https://gettempfromthehub.azurewebsites.net/api/sendMessage';
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-functions-key': functionKey,
-            },
-        });
-
-        if (response.ok) {
-            console.log('Message sent successfully');
-        } else {
-            console.error('Failed to send message:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error sending message:', error);
-    }
-}
-
-// Call the function when the button is clicked
-document.getElementById('yourButtonId').addEventListener('click', sendMessage);
+        // Call the function when the button is clicked
+        document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
 
         window.onload = init;
     </script>
